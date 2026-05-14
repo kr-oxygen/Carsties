@@ -4,9 +4,9 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgrespw
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
-      - /var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
   mongodb:
     image: mongo
     environment:
@@ -15,9 +15,12 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - /data/db
+      - mongodb_data:/data/db
   rabbgitmq:
     image: rabbitmq:3-management-alpine
     ports:
       - "5672:5672"
       - "15672:15672"
+volumes:
+  postgres_data:
+  mongodb_data:

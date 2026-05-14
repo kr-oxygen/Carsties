@@ -1,0 +1,77 @@
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "quoteProps": "preserve",
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "endOfLine": "auto",
+  "embeddedLanguageFormatting": "auto",
+  "singleAttributePerLine": false,
+  "F": "css",
+  "vueIndentScriptAndStyle": false,
+  "importOrder": [],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": false,
+  "overrides": [
+    {
+      "files": "package.json",
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "printWidth": 100,
+        "tabWidth": 2,
+        "useTabs": false,
+        "proseWrap": "preserve"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "jsxSingleQuote": true,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "bracketSameLine": false,
+        "arrowParens": "always",
+        "endOfLine": "auto"
+      }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": false,
+        "singleQuote": false,
+        "trailingComma": "none"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "printWidth": 100,
+        "proseWrap": "preserve"
+      }
+    }
+  ]
+}
