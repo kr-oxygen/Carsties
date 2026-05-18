@@ -16,37 +16,43 @@ builder.Services
     .AddPolicyHandler(GetPolicy());
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
-    x.AddConsumersFromNamespaceContaining<AuctionUpdatedConsumer>();
-    x.AddConsumersFromNamespaceContaining<AuctionDeletedConsumer>();
+  x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+  x.AddConsumersFromNamespaceContaining<AuctionUpdatedConsumer>();
+  x.AddConsumersFromNamespaceContaining<AuctionDeletedConsumer>();
 
-    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
+  x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
 
-    x.UsingRabbitMq((ctx, cfg) =>
+  x.UsingRabbitMq((ctx, cfg) =>
+  {
+    cfg.Host(builder.Configuration["RabbitMq:Host"], "/", h =>
     {
-        cfg.ReceiveEndpoint("search-auction-created", e =>
-        {
-            e.UseMessageRetry(r => r.Interval(5, 5));
-
-            e.ConfigureConsumer<AuctionCreatedConsumer>(ctx);
-        });
-
-        cfg.ReceiveEndpoint("search-auction-updated", e =>
-        {
-            e.UseMessageRetry(r => r.Interval(5, 5));
-
-            e.ConfigureConsumer<AuctionUpdatedConsumer>(ctx);
-        });
-
-        cfg.ReceiveEndpoint("search-auction-deleted", e =>
-        {
-            e.UseMessageRetry(r => r.Interval(5, 5));
-
-            e.ConfigureConsumer<AuctionDeletedConsumer>(ctx);
-        });
-
-        cfg.ConfigureEndpoints(ctx);
+      h.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
+      h.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
     });
+
+    cfg.ReceiveEndpoint("search-auction-created", e =>
+      {
+        e.UseMessageRetry(r => r.Interval(5, 5));
+
+        e.ConfigureConsumer<AuctionCreatedConsumer>(ctx);
+      });
+
+    cfg.ReceiveEndpoint("search-auction-updated", e =>
+      {
+        e.UseMessageRetry(r => r.Interval(5, 5));
+
+        e.ConfigureConsumer<AuctionUpdatedConsumer>(ctx);
+      });
+
+    cfg.ReceiveEndpoint("search-auction-deleted", e =>
+      {
+        e.UseMessageRetry(r => r.Interval(5, 5));
+
+        e.ConfigureConsumer<AuctionDeletedConsumer>(ctx);
+      });
+
+    cfg.ConfigureEndpoints(ctx);
+  });
 });
 
 var app = builder.Build();
@@ -62,14 +68,14 @@ app.MapControllers();
 
 app.Lifetime.ApplicationStarted.Register(async () =>
 {
-    try
-    {
-        await DbInitializer.InitDb(app);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-    }
+  try
+  {
+    await DbInitializer.InitDb(app);
+  }
+  catch (Exception e)
+  {
+    Console.WriteLine(e);
+  }
 });
 
 app.Run();

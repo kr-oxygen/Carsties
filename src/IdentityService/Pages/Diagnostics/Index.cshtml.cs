@@ -9,18 +9,18 @@ namespace IdentityService.Pages.Diagnostics;
 [Authorize]
 public class Index : PageModel
 {
-    public ViewModel View { get; set; } = default!;
+  public ViewModel View { get; set; } = default!;
 
-    public async Task<IActionResult> OnGet()
-    {
-        //Replace with an authorization policy check
-        if (HttpContext.Connection.IsRemote())
-        {
-            return NotFound();
-        }
+  public async Task<IActionResult> OnGet()
+  {
+    //Replace with an authorization policy check
+    // if (HttpContext.Connection.IsRemote())
+    // {
+    //     return NotFound();
+    // }
 
-        View = new ViewModel(await HttpContext.AuthenticateAsync());
+    View = new ViewModel(await HttpContext.AuthenticateAsync());
 
-        return Page();
-    }
+    return Page();
+  }
 }
