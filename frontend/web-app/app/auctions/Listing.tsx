@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParamsStore } from '@/hooks/useParamsSotre';
+import { useParamsStore } from '@/hooks/useParamsStore';
 import { Auction, PaginatedResult } from '@/types/auction';
 import qs from 'query-string';
 import { useShallow } from 'zustand/shallow';
@@ -37,7 +37,6 @@ export default function Listing() {
 
   useEffect(() => {
     getData(url).then((data) => {
-      console.log('Fetched data:', data);
       setData(data);
     });
   }, [url]);

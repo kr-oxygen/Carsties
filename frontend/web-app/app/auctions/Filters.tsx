@@ -1,4 +1,4 @@
-import { useParamsStore } from '@/hooks/useParamsSotre';
+import { useParamsStore } from '@/hooks/useParamsStore';
 import { Button, ButtonGroup } from 'flowbite-react';
 import { AiOutlineClockCircle, AiOutlineSortAscending } from 'react-icons/ai';
 import { BsFillStopCircleFill, BsStopwatchFill } from 'react-icons/bs';
@@ -41,7 +41,7 @@ export default function Filters() {
               color={`${filterBy === value ? 'red' : 'gray'}`}
               className='focus:ring-0'
             >
-              <Icon className='mr-3' h-4 w-4 />
+              <Icon className='mr-3 h-4 w-4' />
               {label}
             </Button>
           ))}
@@ -57,7 +57,7 @@ export default function Filters() {
               color={`${orderBy === value ? 'red' : 'gray'}`}
               className='focus:ring-0'
             >
-              <Icon className='mr-3' h-4 w-4 />
+              <Icon className='mr-3 h-4 w-4' />
               {label}
             </Button>
           ))}

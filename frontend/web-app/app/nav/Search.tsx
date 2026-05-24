@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParamsStore } from '@/hooks/useParamsSotre';
+import { useParamsStore } from '@/hooks/useParamsStore';
 import { FaSearch } from 'react-icons/fa';
 
 export default function Search() {
