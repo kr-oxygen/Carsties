@@ -6,3 +6,7 @@
 button {
   @apply cursor-pointer;
 }
+
+.react-datepicker-wrapper {
+  @apply w-full;
+}

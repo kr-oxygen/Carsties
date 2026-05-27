@@ -8,7 +8,7 @@ export interface Auction {
   createdAt: Date;
   updatedAt: Date;
   reservePrice: number;
-  seller: string;
+  seller?: string;
   winner: null;
   soldAmount: null;
   currentHighBid: null;
