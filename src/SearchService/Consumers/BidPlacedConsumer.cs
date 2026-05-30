@@ -1,4 +1,3 @@
-using System;
 using Contracts;
 using MassTransit;
 using MongoDB.Entities;
@@ -21,7 +20,7 @@ public class BidPlacedConsumer : IConsumer<BidPlaced>
     }
 
     if (context.Message.BidStatus.Contains("Accepted")
-      && context.Message.Amount > auction.CurrentHighBid)
+      && (context.Message.Amount > auction.CurrentHighBid || auction.CurrentHighBid == null))
     {
       auction.CurrentHighBid = context.Message.Amount;
 

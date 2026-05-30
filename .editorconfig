@@ -1,0 +1,14 @@
+[*.cs]
+
+# 1. Define the private fields symbol group
+dotnet_naming_symbols.private_fields_group.applicable_kinds = field
+dotnet_naming_symbols.private_fields_group.applicable_accessibilities = private, internal
+
+# 2. Define the style (leading underscore + camelCase)
+dotnet_naming_style.underscore_camel_case_style.required_prefix = _
+dotnet_naming_style.underscore_camel_case_style.capitalization = camel_case
+
+# 3. Bind the group to the style with a notification preference
+dotnet_naming_rule.private_fields_with_underscore.symbols = private_fields_group
+dotnet_naming_rule.private_fields_with_underscore.style = underscore_camel_case_style
+dotnet_naming_rule.private_fields_with_underscore.severity = suggestion
