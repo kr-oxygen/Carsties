@@ -64,7 +64,7 @@ public class BidsController : ControllerBase
       if (highBid != null && amount > highBid.Amount || highBid == null)
       {
         bid.BidStatus = amount > auction.ReservePrice
-          ? BidStatus.Accepted : BidStatus.AcceptedBellowReserve;
+          ? BidStatus.Accepted : BidStatus.AcceptedBelowReserve;
       }
 
       if (highBid != null && bid.Amount <= highBid.Amount)

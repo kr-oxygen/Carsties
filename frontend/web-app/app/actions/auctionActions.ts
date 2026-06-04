@@ -3,7 +3,7 @@
 import { FieldValues } from 'react-hook-form';
 import { auth } from '@/auth';
 import { fetchWrapper } from '@/lib/fetchWrapper';
-import { Auction, PaginatedResult } from '@/types/auction';
+import { Auction, Bid, PaginatedResult } from '@/types/auction';
 
 export async function getData(
   query: string,
@@ -39,4 +39,19 @@ export async function updateAuction(data: FieldValues, id: string) {
 
 export async function deleteAuction(id: string) {
   return fetchWrapper.del(`auctions/${id}`);
+}
+
+export async function getBidsForAuction(id: string): Promise<Bid[]> {
+  const bids = await fetchWrapper.get(`bids/${id}`);
+  console.log('BIDS', bids);
+  return bids;
+}
+
+export async function placeBidForAuction(auctionId: string, amount: number) {
+  const bid = await fetchWrapper.post(
+    `bids?auctionId=${auctionId}&amount=${amount}`,
+    {},
+  );
+  console.log('bid', bid);
+  return bid;
 }

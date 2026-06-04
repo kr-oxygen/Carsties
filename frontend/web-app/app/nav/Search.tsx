@@ -37,7 +37,7 @@ export default function Search() {
         }}
         type='text'
         placeholder='Search for cars by make, model, or color...'
-        className='flex-grow px-4 text-sm focus:outline-none rounded-l-full bg-transparent border-transparent focus:ring-0'
+        className='input-custom'
       />
       <button onClick={handleSearch}>
         <FaSearch

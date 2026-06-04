@@ -9,12 +9,12 @@ export default function EmptyState({
 }: {
   title: string;
   subtitle: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
     <div className='flex flex-col gap-2 items-center justify-center h-[40vh] shadow-lg'>
       <Heading title={title} subtitle={subtitle} center />
-      <div className='mt-4'>{children}</div>
+      {children && <div className='mt-4'>{children}</div>}
     </div>
   );
 }

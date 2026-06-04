@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuctionStore } from '@/hooks/useAuctionStore';
 import { useParamsStore } from '@/hooks/useParamsStore';
-import { Auction, PaginatedResult } from '@/types/auction';
+import { Auction } from '@/types/auction';
 import qs from 'query-string';
 import { useShallow } from 'zustand/shallow';
 import AuctionCard from './AuctionCard';
@@ -12,7 +13,7 @@ import AppPagination from '../components/AppPagination';
 import EmptyFilter from '../components/EmptyFilter';
 
 export default function Listing() {
-  const [data, setData] = useState<PaginatedResult<Auction>>();
+  const [loading, setLoading] = useState(true);
 
   const params = useParamsStore(
     useShallow((state) => ({
@@ -26,6 +27,16 @@ export default function Listing() {
     })),
   );
 
+  const data = useAuctionStore(
+    useShallow((state) => ({
+      auctions: state.auctions,
+      totalCount: state.totalCount,
+      pageCount: state.pageCount,
+    })),
+  );
+
+  const setData = useAuctionStore((state) => state.setData);
+
   const setParams = useParamsStore((state) => state.setParams);
 
   function setPageNumber(page: number) {
@@ -38,12 +49,14 @@ export default function Listing() {
   );
 
   useEffect(() => {
-    getData(url).then((data) => {
-      setData(data);
-    });
-  }, [url]);
+    getData(url)
+      .then((data) => {
+        setData(data);
+      })
+      .finally(() => setLoading(false));
+  }, [url, setData]);
 
-  if (!data) {
+  if (loading) {
     return <h3>Loading...</h3>;
   }
 
@@ -51,11 +64,11 @@ export default function Listing() {
     <>
       <Filters />
       {data.totalCount === 0 ? (
-        <EmptyFilter showReset />
+        <EmptyFilter />
       ) : (
         <>
           <div className='grid grid-cols-4 gap-6'>
-            {data.results.map((auction: Auction) => (
+            {data.auctions.map((auction: Auction) => (
               <AuctionCard key={auction.id} auction={auction} />
             ))}
           </div>

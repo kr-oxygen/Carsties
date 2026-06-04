@@ -9,9 +9,9 @@ export interface Auction {
   updatedAt: Date;
   reservePrice: number;
   seller?: string;
-  winner: null;
-  soldAmount: null;
-  currentHighBid: null;
+  winner: string;
+  soldAmount: number;
+  currentHighBid: number;
   auctionEnd: Date;
   status: string;
   make: string;
@@ -22,3 +22,20 @@ export interface Auction {
   imageUrl: string;
   id: string;
 }
+
+export type Bid = {
+  id: string;
+  auctionId: string;
+  bidder: string;
+  bidTime: string;
+  amount: number;
+  bidStatus: string;
+};
+
+export type AuctionFinished = {
+  itemSold: boolean;
+  auctionId: string;
+  winner?: string;
+  seller: string;
+  amount?: number;
+};

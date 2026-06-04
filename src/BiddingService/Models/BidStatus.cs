@@ -3,7 +3,7 @@ namespace BiddingService;
 public enum BidStatus
 {
   Accepted,
-  AcceptedBellowReserve,
+  AcceptedBelowReserve,
   TooLow,
   Finished
 }
