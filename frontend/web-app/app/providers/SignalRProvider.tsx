@@ -5,20 +5,17 @@ import { useAuctionStore } from '@/hooks/useAuctionStore';
 import { useBidStore } from '@/hooks/useBidStore';
 import { Auction, AuctionFinished, Bid } from '@/types/auction';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { User } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getDetailedViewData } from '../actions/auctionActions';
 import AuctionCreatedToast from '../components/AuctionCreatedToast';
 import AuctionFinishedToast from '../components/AuctionFinishedToast';
 
-export default function SignalRProvider({
-  children,
-  user,
-}: {
-  children: ReactNode;
-  user: User | null;
-}) {
+export default function SignalRProvider({ children }: { children: ReactNode }) {
+  const session = useSession();
+  const user = session.data?.user;
+
   const connection = useRef<HubConnection | null>(null);
 
   const setCurrentPrice = useAuctionStore((state) => state.setCurrentPrice);
@@ -75,7 +72,7 @@ export default function SignalRProvider({
   useEffect(() => {
     if (!connection.current) {
       connection.current = new HubConnectionBuilder()
-        .withUrl('http://localhost:6001/notifications')
+        .withUrl(process.env.NEXT_PUBLIC_NOTIFY_URL!)
         .withAutomaticReconnect()
         .build();
 
